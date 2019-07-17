@@ -2,21 +2,17 @@
 
 echo $BASHPID > /var/run/undervoltWatch.pid
 
-killall -q undervoltWatch
-while pgrep -u $UID -x undervoltWatch >/dev/null; do sleep 1; done
-
 # Change these values to desired offsets
 
-iCoreOffset=-110 # value used for core and cache as they should be the same
-iGpuOffset=-75
-iTargetTemp=70
+iCoreOffset=-100 # value used for core and cache as they should be the same
+iGpuOffset=-40
 
 while true
 do
 	sCurrentCoreOffset=$(undervolt -r | grep -m 1 core: )
 	if [ "$sCurrentCoreOffset" == "core: 0.0 mV" ]; then
 		echo UV not applied. Applying now...
-		undervolt --core $iCoreOffset --cache $iCoreOffset --gpu $iGpuOffset --temp $iTargetTemp
+		undervolt --core $iCoreOffset --cache $iCoreOffset --gpu $iGpuOffset
 		sCurrentCoreOffset=$(undervolt -r | grep -m 1 core: )
 		if [ "$sCurrentCoreOffset" == "core: 0.0 mV" ]; then
 			echo UV failed to apply.

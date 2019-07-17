@@ -1,5 +1,11 @@
 # undervoltWatch
 
+## Install undervolt
+```bash
+sudo -H pip3 install undervolt
+```
+May have move to `/usr/local/bin/undervolt`.
+
 ### Ensure undervolt offsets are always applied.
 
 This is just a watcher tool for undervolt.
